@@ -1,0 +1,9 @@
+@startuml Adventure
+
+class Location{
+    - c : int
+    - s : String
+}
+
+
+@enduml
