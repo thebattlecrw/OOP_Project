@@ -25,6 +25,8 @@ public abstract class NPC {
 	
 	public abstract void interact();
 	
-	public abstract void print_description();
+	public void print_description() {
+		System.out.println(this.description);
+	}
 	
 }
