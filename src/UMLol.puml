@@ -1,0 +1,47 @@
+@startuml
+class Room {
+    + name: String
+    + description: String
+    - exits: Map<String, Exit>
+    - pots: List<Pot>
+    + Room(name: String, description: String)
+    + addExit(direction: String, exit: Exit): void
+    + addPot(pot: Pot): void
+    + describe(): void
+    + getExit(direction: String): Exit
+}
+
+class Exit {
+    + direction: String
+    + destination: Room
+    + Exit(direction: String, destination: Room)
+    + traverse(): void
+}
+
+class Pot {
+    + value: int
+    + Pot(value: int)
+    + destroy(): int
+}
+
+class Map {
+    + currentRoom: Room
+    + Map()
+    + setCurrentRoom(room: Room): void
+    + moveTo(direction: String): void
+}
+
+class Player {
+    + gold: int
+    + Player()
+    + collectGold(amount: int): void
+    + showGold(): void
+}
+
+Room "1" *-- "*" Exit : has
+Room "1" *-- "*" Pot : contains
+Map "1" *-- "1" Room : maps to
+Player "1" *-- "1" Map : controls
+Player "1" *-- "*" Pot : interacts with
+
+@enduml
