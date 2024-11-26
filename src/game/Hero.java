@@ -8,7 +8,8 @@ public class Hero {
     private String name;
     private int healthPoints;
     private int ammoCount;
-    private List<Key> keys;
+    private List<Key> keys; // pas mieux de le mettre dans backpack? 
+    
 
     // --- Getters. ---
     public String getName() {
@@ -34,6 +35,8 @@ public class Hero {
     public void setAmmoCount(int ammoCount) {
         this.ammoCount = ammoCount;
     }
+    // Add keys.
+    // Rem keys.
 
     // --- Constructors. ---
     public Hero(){
