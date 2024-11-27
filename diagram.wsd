@@ -3,7 +3,7 @@
 class Room{
     + NAME : String
     + DESCRIPTION : String
-    - exits : List<Map<String, Exit>>
+    - exits : Map<String, Exit>
     - npcs : List<NPC>
     - chests : List<Chest>
     - items : List<Item>
@@ -14,21 +14,16 @@ class Room{
 class Map{
     + {static}MAP : Map
     - curr : int
-    
+    - rooms : List<Room>
+
     - Map()
     + init() : void
 }
 
 class Exit{
-    + ROOM : Room
+    + ROOMS : List<Room>
     
     + Exit(Room)
-}
-
-class OneWayExit{
-
-    + OneWayExit(Room, Room)
-    + go(int, int) : void
 }
 
 abstract class Item{
@@ -37,16 +32,6 @@ abstract class Item{
 
     + Item(int, String)
     + {abstract}use() : void
-}
-
-abstract class Equipment{
-    - att : int
-    - def : int
-    - lvl : int
-    + NAME : String
-
-    + Equipment(String, int, int)
-    + {abstract}upgrade() : void 
 }
 
 class Backpack{
@@ -73,58 +58,21 @@ class Hero{
 
 abstract class NPC{
     + HP : int
-    + ATT : int
-    + DEF : int
+    + DMG : int
     + DESCRIPTION : String
     - key : Key
-    - gold : int
 
     + NPC()
     + NPC(int)
     + NPC(Key) 
-    + {abstract}attack() : void
+    + {abstract} attack() : void
 }
 
-class Pot{
-
-    + Pot(int)
-    + attack() : void
-}
-
-class Orc{
-     
-    + Orc() 
-    + attack() : void
-}
-
-class Troll{
-    
-    + Troll(int, Key)
-    + attack() : void
-    + talk() : void
-    + give(int) : void
-}
-
-class Merchant{
-    - items : List
-    - prices : List
-
-    + Merchant(List<Integer>, List<Item>)
-    + attack() : void
-    + talk() : void
-}
-
-class OldMan{
-
-    + OldMan(Key)
-    + riddle() : void
-    + solve(int) : void
-}
-
-Hero *--> Equipment
 Hero *--> Backpack
+Backpack --|> Item
+Key --|> Item
 Room *--> Exit
+Room *--> NPC
 Map *--> Room
-Exit --> OneWayExit
 
 @enduml

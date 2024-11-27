@@ -1,4 +1,5 @@
-@startuml
+@startuml Hospital
+
 class Room {
     + name: String
     + description: String
