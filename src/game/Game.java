@@ -3,6 +3,7 @@ package game;
 import java.util.Scanner;
 
 public class Game {
+
     private Room currentRoom;
     private Hero hero;
 
@@ -24,7 +25,9 @@ public class Game {
         room4.setExit("east", room5);
         room5.setExit("west", room4);
 
-        // Ajouter un NPC/Item dans certaines salles
+        // Ajouter les munitions
+        Ammo ammo = new Ammo("Ammo");
+        room1.addItem(ammo);
 
         // Initialiser le héros
         hero = new Hero();
@@ -39,14 +42,23 @@ public class Game {
         boolean gameRunning = true;
 
         while (gameRunning) {
-            System.out.println("Vous êtes dans " + currentRoom.getName());
+            System.out.println("\nVous êtes dans " + currentRoom.getName());
             System.out.println(currentRoom.getDescription());
-            System.out.println("Que voulez-vous faire? (GO [direction], QUIT)");
+            System.out.println("Que voulez-vous faire? (HELP pour la liste des commandes.)");
             input = scanner.nextLine();
 
             if (input.startsWith("GO ")) {
                 String direction = input.substring(3);
                 go(direction);
+            } else if (input.equals("HELP")) {
+                help();  // Afficher la liste des commandes
+            } else if (input.equals("LOOK")) {
+                look();  // Afficher la description de la salle et les items
+            } else if (input.startsWith("TAKE ")) {
+                String itemName = input.substring(5);  // Récupérer le nom de l'item
+                take(itemName);  // Prendre l'item
+            } else if (input.equals("INVENTORY")) {
+                inventory();  // Afficher l'inventaire du héros
             } else if (input.equals("QUIT")) {
                 gameRunning = false;
             } else {
@@ -58,6 +70,8 @@ public class Game {
         scanner.close();
     }
 
+
+    //COMMANDES EN JEU
     private void go(String direction) {
         Room nextRoom = currentRoom.getExit(direction);
         if (nextRoom != null) {
@@ -65,5 +79,34 @@ public class Game {
         } else {
             System.out.println("Vous faites face à un mur.");
         }
+    }
+
+    public void help() {
+        System.out.println("Commandes disponibles :");
+        System.out.println("GO [direction] - Se déplacer dans la direction spécifiée (ex: GO east).");
+        System.out.println("QUIT - Quitter le jeu.");
+        System.out.println("HELP - Afficher cette liste de commandes.");
+        System.out.println("LOOK - Regarder autour de vous (affiche la description de la salle et les objets présents).");
+        System.out.println("TAKE [item] - Prendre un item de la salle (ex: TAKE Key).");
+        System.out.println("INVENTORY - Afficher les objets dans votre inventaire.");
+    }
+
+    public void look() {
+        currentRoom.showItems();  // Afficher les objets dans la salle
+    }
+
+    public void take(String itemName) {
+        Item item = currentRoom.getItem(itemName);  // Récupérer l'item par son nom dans la salle
+        if (item != null) {
+            hero.addItem(item);  // Ajouter l'item à l'inventaire du héros
+            currentRoom.removeItem(itemName);  // Retirer l'item de la salle
+            System.out.println("Vous avez pris l'item : " + item.NAME);
+        } else {
+            System.out.println("Cet item n'est pas présent dans cette salle.");
+        }
+    }
+
+    public void inventory() {
+        hero.showInventory();  // Affiche l'inventaire du héros
     }
 }

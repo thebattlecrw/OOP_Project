@@ -1,18 +1,16 @@
 package game;
 
-// --- Import. ---
 import java.util.ArrayList;
 import java.util.List;
 
-// --- Principal class. ---
 public class Hero {
 
     // --- Attributs. ---
     private String name;
     private int healthPoints;
     private int ammoCount;
-    private List<Key> keys; // pas mieux de le mettre dans backpack?
-    
+    private List<Key> keys;
+    private Backpack backpack;  // Remplacer la liste d'items par un Backpack
 
     // --- Getters. ---
     public String getName() {
@@ -27,8 +25,11 @@ public class Hero {
     public List<Key> getKeys() {
         return keys;
     }
+    public Backpack getBackpack() {
+        return backpack;  // Retourner l'objet Backpack
+    }
 
-    // --- Setters. --- 
+    // --- Setters. ---
     public void setName(String name) {
         this.name = name;
     }
@@ -38,14 +39,30 @@ public class Hero {
     public void setAmmoCount(int ammoCount) {
         this.ammoCount = ammoCount;
     }
-    // Add keys.
-    // Rem keys.
 
-    // --- Constructors. ---
-    public Hero(){
+    // --- Constructeur. ---
+    public Hero() {
         this.name = "Generic";
         this.healthPoints = 100;
         this.ammoCount = 0;
         this.keys = new ArrayList<>();
+        this.backpack = new Backpack();  // Initialisation du sac à dos
+    }
+
+    // --- Méthodes. ---
+
+    // Ajouter un item au backpack
+    public void addItem(Item item) {
+        backpack.addItem(item);
+    }
+
+    // Retirer un item du backpack
+    public void removeItem(Item item) {
+        backpack.removeItem(item);
+    }
+
+    // Afficher l'inventaire (les items dans le backpack)
+    public void showInventory() {
+        backpack.showItems();
     }
 }
