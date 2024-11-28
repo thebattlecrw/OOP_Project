@@ -84,11 +84,11 @@ public class Game {
     public void help() {
         System.out.println("Commandes disponibles :");
         System.out.println("GO [direction] - Se déplacer dans la direction spécifiée (ex: GO east).");
-        System.out.println("QUIT - Quitter le jeu.");
         System.out.println("HELP - Afficher cette liste de commandes.");
         System.out.println("LOOK - Regarder autour de vous (affiche la description de la salle et les objets présents).");
         System.out.println("TAKE [item] - Prendre un item de la salle (ex: TAKE Key).");
         System.out.println("INVENTORY - Afficher les objets dans votre inventaire.");
+        System.out.println("QUIT - Quitter le jeu.");
     }
 
     public void look() {
