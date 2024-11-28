@@ -1,5 +1,8 @@
+package game;
+
 // --- Import. ---
 import java.util.ArrayList;
+import java.util.List;
 
 // --- Principal class. ---
 public class Hero {
@@ -8,7 +11,7 @@ public class Hero {
     private String name;
     private int healthPoints;
     private int ammoCount;
-    private List<Key> keys; // pas mieux de le mettre dans backpack? 
+    private List<Key> keys; // pas mieux de le mettre dans backpack?
     
 
     // --- Getters. ---

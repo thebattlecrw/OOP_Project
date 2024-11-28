@@ -1,3 +1,5 @@
+package game;
+
 import java.util.Scanner;
 
 public class Game {
@@ -22,9 +24,7 @@ public class Game {
         room4.setExit("east", room5);
         room5.setExit("west", room4);
 
-        // Ajouter un pot dans certaines salles
-        room2.addPot(new Pot(7));  // Salle 2 avec un pot
-        room3.addPot(new Pot(7));  // Salle 3 avec un pot
+        // Ajouter un NPC/Item dans certaines salles
 
         // Initialiser le héros
         hero = new Hero();
@@ -41,7 +41,6 @@ public class Game {
         while (gameRunning) {
             System.out.println("Vous êtes dans " + currentRoom.getName());
             System.out.println(currentRoom.getDescription());
-            System.out.println("Or: " + hero.getGold() + " pièces.");
             System.out.println("Que voulez-vous faire? (GO [direction], QUIT)");
             input = scanner.nextLine();
 
