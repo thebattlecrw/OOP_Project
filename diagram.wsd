@@ -1,7 +1,5 @@
-@startuml Lifeless 
+@startuml Lifeless
 
-class Item{
-    
-}
+class Game{}
 
 @enduml
