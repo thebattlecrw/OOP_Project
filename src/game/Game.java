@@ -1,75 +1,109 @@
 package game;
 
+import java.util.Objects;
 import java.util.Scanner;
+import java.util.Iterator;
+
 
 public class Game {
 
     private Room currentRoom;
     private final Hero hero;
+    private boolean hasVisited2 = false;
 
-    //Sinon erreur à go() ---- On met toutes les rooms ici ?
-    private final Room couloir2 = new Room("Couloir du 2ème étage", "Un couloir tout à fait banal. Il mène aux pièces «201» à «206», ainsi qu'aux couloirs du 1er «couloir1» et 3ème «couloir3» étage.");
+    // Otherwise, an error in go() ---- Should we declare all rooms here?
+    private final Room hall2 = new Room("Second Floor Hallway", "A completely ordinary hallway. It leads to rooms '201' to '206', as well as to the hallways on the first 'hall1' and third 'hall3' floors.");
+    private final Room exit = new Room("Exit", "The exit of the hospital.");
 
     public Game() {
 
-        // Initialisation des salles
-        Room couloir3 = new Room("Couloir du 3ème étage", "Un couloir tout à fait banal. Il mène aux pièces «301» à «306», ainsi qu'au couloir du 2ème étage «couloir2».");
+        // Room initialization
 
-        Room room301 = new Room("Salle 301", "C'est votre chambre. Il n'y a qu'une porte, qui mène au couloir du 3ème étage «couloir3».");
-        Room room302 = new Room("Salle 302", "Une salle où un échange de tirs a eu lieu.");
-        Room room303 = new Room("Salle 303", "Une autre salle avec un trou.");
-        Room room304 = new Room("Salle 304", "Une salle où un échange de tirs a eu lieu.");
-        Room room305 = new Room("Salle 305 - Cabinet du Dr. Hou", "Une autre salle vide. Une inscription à moitié effacée, ou simplement mal écrite, est sur le tableau : «H LP 101 3__4");
-        Room room306 = new Room("Salle 306", "Une pièce avec un sergent agonisant. «S'il te plaît, dis moi que mon chef de compagnie va bien. Il allait se faire vacciner en salle 204.»");
+        Room room101 = new Room("Room 101", "A completely ordinary room.");
+        Room room102 = new Room("Room 102", "A completely ordinary room.");
+        Room room103 = new Room("Room 103", "A completely ordinary room.");
+        Room room104 = new Room("Room 104", "A completely ordinary room.");
+        Room room105 = new Room("Room 105", "A completely ordinary room.");
+        Room room106 = new Room("Room 106", "A completely ordinary room.");
 
-        Room room201 = new Room("Salle 201", "Une chambre qui semble vide au premier regard.");
-        Room room202 = new Room("Salle 202", "Une salle vide.");
-        Room room203 = new Room("Salle 203", "Une salle avec une télé.");
-        Room room204 = new Room("Salle 204", "Une salle avec un brancard qui bloque la porte. Vous y trouvez le corps de l'adjudant TIFRICE, à moitié zombifié...");
-        Room room205 = new Room("Salle 205", "Une salle sans vie, avec une forte odeur de putréfaction. Il y a un trou dans un mur.");
-        Room room206 = new Room("Salle 206", "Une salle avec une télé.");
+        Room room201 = new Room("Room 201", "A room that seems empty at first glance.");
+        Room room202 = new Room("Room 202", "An empty room.");
+        Room room203 = new Room("Room 203", "A room with a TV.");
+        Room room204 = new Room("Room 204", "A room with a stretcher blocking the door. Inside, you find the half-zombified body of Sergeant TIFRICE...");
+        Room room205 = new Room("Room 205", "A lifeless room with a strong stench of decay. There's a hole in one of the walls.");
+        Room room206 = new Room("Room 206", "A room with a TV.");
 
-        // Relier les salles entre elles
-        couloir3.setExit("301", room301);
-        couloir3.setExit("302", room302);
-        couloir3.setExit("303", room303);
-        couloir3.setExit("304", room304);
-        couloir3.setExit("305", room305);
-        couloir3.setExit("306", room306);
-        couloir3.setExit("couloir2", couloir2);
+        Room room301 = new Room("Room 301", "This is your room. There’s only one door, which leads to the third-floor hallway 'Hall2'.");
+        Room room302 = new Room("Room 302", "A room where a shootout occurred.");
+        Room room303 = new Room("Room 303", "Another room with a hole.");
+        Room room304 = new Room("Room 304", "A room where a shootout occurred.");
+        Room room305 = new Room("Room 305 - Dr. Hou’s Office", "Another empty room. A half-erased or simply poorly written inscription is on the board: 'H LP 101 3__4'.");
+        Room room306 = new Room("Room 306", "A room with a dying sergeant. 'Please, tell me my company commander is okay. He went to get vaccinated in room 204.'");
 
-        room301.setExit("couloir3", couloir3);
-        room302.setExit("couloir3", couloir3);
-        room303.setExit("couloir3", couloir3);
-        room304.setExit("couloir3", couloir3);
-        room305.setExit("couloir3", couloir3);
-        room306.setExit("couloir3", couloir3);
+        Room hall1 = new Room("Hall1", "A completely ordinary hallway. It leads to rooms '101' to '106', as well as to the hallway on the second floor 'hall2'.");
+        Room hall3 = new Room("Third Floor Hallway", "A completely ordinary hallway. It leads to rooms '301' to '306', as well as to the hallway on the second floor 'hall2'.");
 
-        couloir2.setExit("couloir3", couloir3);
-        couloir2.setExit("201", room201);
-        couloir2.setExit("202", room202);
-        couloir2.setExit("203", room203);
-        couloir2.setExit("205", room205);
-        couloir2.setExit("206", room206);
+        // Link the rooms together
+        room101.setExit("hall1", hall1);
+        room102.setExit("hall1", hall1);
+        room103.setExit("hall1", hall1);
+        room104.setExit("hall1", hall1);
+        room105.setExit("hall1", hall1);
+        room106.setExit("hall1", hall1);
 
-        room201.setExit("couloir2", couloir2);
-        room202.setExit("couloir2", couloir2);
-        room203.setExit("couloir2", couloir2);
+        room201.setExit("hall2", this.hall2);
+        room202.setExit("hall2", this.hall2);
+        room203.setExit("hall2", this.hall2);
         room204.setExit("205", room205);
-        room205.setExit("couloir2", couloir2);
+        room205.setExit("hall2", this.hall2);
         room205.setExit("204", room204);
-        room206.setExit("couloir2", couloir2);
+        room206.setExit("hall2", this.hall2);
 
-        // Ajouter les munitions
+        room301.setExit("hall3", hall3);
+        room302.setExit("hall3", hall3);
+        room303.setExit("hall3", hall3);
+        room304.setExit("hall3", hall3);
+        room305.setExit("hall3", hall3);
+        room306.setExit("hall3", hall3);
+
+        hall1.setExit("101", room101);
+        hall1.setExit("102", room102);
+        hall1.setExit("103", room103);
+        hall1.setExit("104", room104);
+        hall1.setExit("105", room105);
+        hall1.setExit("106", room106);
+        hall1.setExit("hall2", this.hall2);
+        hall1.setExit("exit", exit);
+
+        this.hall2.setExit("hall1", hall1);
+        this.hall2.setExit("hall3", hall3);
+        this.hall2.setExit("201", room201);
+        this.hall2.setExit("202", room202);
+        this.hall2.setExit("203", room203);
+        this.hall2.setExit("205", room205);
+        this.hall2.setExit("206", room206);
+
+        hall3.setExit("301", room301);
+        hall3.setExit("302", room302);
+        hall3.setExit("303", room303);
+        hall3.setExit("304", room304);
+        hall3.setExit("305", room305);
+        hall3.setExit("306", room306);
+        hall3.setExit("hall2", this.hall2);
+
+        // Add ammunition
         Ammo ammo = new Ammo("Ammo");
+        Gun FAMAS = new Gun("FAMAS");
+        room301.addItem(FAMAS);
         room302.addItem(ammo);
         room304.addItem(ammo);
+        room103.addItem(ammo);
 
-        // Initialiser le héros
+        // Initialize the hero
         hero = new Hero();
 
-        // Commencer le jeu dans la salle de départ
-        currentRoom = room301;
+        // Start the game in the initial room
+        currentRoom = hall3;
     }
 
     public void start() {
@@ -77,85 +111,129 @@ public class Game {
         String input;
         boolean gameRunning = true;
 
-        System.out.println(""" 
-                _____________________________________________________________________________________________________________________________________________________________
-                Vous vous réveillez dans un hôpital militaire. Alors que vous ne deviez venir que pour un banal rappel de vaccin, le scénario tourne au cauchemar...
-                Le dit vaccin a été remplacé par un poison transformant les patients en zombis. Heureusement, votre corps n'a pas réagi comme attendu, mais ce n'est pas le
-                cas pour le reste du régiment... À vous de trouver une solution pour sortir d'ici, mais attention, certains ont déjà entammé le processus de transformation !
-                _____________________________________________________________________________________________________________________________________________________________""");
+        System.out.println("""
+                ______________________________________________________________________________________________________________
+                You wake up in a military hospital. What should have been a routine vaccination turns into a nightmare...
+                The vaccine was replaced with a poison that turns patients into zombies. Fortunately, your body didn’t react
+                as expected... You need to find a way out, but beware, some are already in the process of transforming!
+                ______________________________________________________________________________________________________________""");
 
         while (gameRunning) {
             System.out.println("\n\n[ " + currentRoom.getName() + " ]");
             System.out.println(currentRoom.getDescription());
-            System.out.println("Que voulez-vous faire ? (HELP pour la liste des commandes.)");
+            if ((currentRoom == hall2 && !hasVisited2) || (currentRoom == exit)) {
+                fightZombie();
+                hasVisited2 = true;
+            }
+            System.out.println("What would you like to do? (Type HELP for a list of commands.)");
             input = scanner.nextLine();
 
             if (input.startsWith("GO ")) {
                 String direction = input.substring(3);
                 go(direction);
             } else if (input.equals("HELP")) {
-                help();  // Afficher la liste des commandes
+                help();  // Show the list of commands
             } else if (input.equals("LOOK")) {
-                look();  // Afficher la description de la salle et les items
+                look();  // Show the room's description and items
             } else if (input.startsWith("TAKE ")) {
-                String itemName = input.substring(5);  // Récupérer le nom de l'item
-                take(itemName);  // Prendre l'item
+                String itemName = input.substring(5);  // Extract the item name
+                take(itemName);  // Take the item
             } else if (input.equals("INVENTORY")) {
-                inventory();  // Afficher l'inventaire du héros
+                inventory();  // Show the hero's inventory
             } else if (input.equals("QUIT")) {
                 gameRunning = false;
             } else {
-                System.out.println("Commande inconnue.");
+                System.out.println("Unknown command.");
             }
         }
 
-        System.out.println("Fin du jeu.");
+        System.out.println("Game over.");
         scanner.close();
     }
 
-    //COMMANDES EN JEU
+    // In-game commands
     private void go(String direction) {
         Room nextRoom = currentRoom.getExit(direction);
 
-        // Vérifier si le joueur est dans le couloir2 et tente d'aller dans la salle 204
-        if (currentRoom == couloir2 && direction.equals("204")) {
-            System.out.println("La porte semble bloquée de l'intérieur.");
+        // Check if the player is in the Hall2 and tries to enter room 204
+        if (currentRoom == hall2 && direction.equals("204")) {
+            System.out.println("The door seems blocked from the inside.");
         } else {
             if (nextRoom != null) {
-                currentRoom = nextRoom;  // Déplacer le joueur dans la salle suivante
-                System.out.println("Vous vous déplacez vers : " + nextRoom.getName());
+                currentRoom = nextRoom;  // Move the player to the next room
+                System.out.println("You move to: " + nextRoom.getName());
             } else {
-                System.out.println("Vous faites face à un mur.");
+                System.out.println("You face a wall.");
             }
         }
     }
 
     public void help() {
-        System.out.println("Commandes disponibles :");
-        System.out.println("GO [direction] - Se déplacer dans la direction spécifiée (ex: GO east).");
-        System.out.println("HELP - Afficher cette liste de commandes.");
-        System.out.println("LOOK - Regarder autour de vous (affiche la description de la salle et les objets présents).");
-        System.out.println("TAKE [item] - Prendre un item de la salle (ex: TAKE Key).");
-        System.out.println("INVENTORY - Afficher les objets dans votre inventaire.");
-        System.out.println("QUIT - Quitter le jeu.");
+        System.out.println("Available commands:");
+        System.out.println("GO [direction] - Move in the specified direction (e.g., GO east).");
+        System.out.println("HELP - Display this list of commands.");
+        System.out.println("LOOK - Look around (displays the room description and items present).");
+        System.out.println("TAKE [item] - Pick up an item in the room (e.g., TAKE Key).");
+        System.out.println("INVENTORY - Show items in your inventory.");
+        System.out.println("QUIT - Quit the game.");
     }
 
     public void look() {
-        currentRoom.showItems();  // Afficher les objets dans la salle
+        currentRoom.showItems();  // Display the items in the room
     }
 
     public void take(String itemName) {
-        Item item = currentRoom.getItem(itemName);  // Récupérer l'item par son nom dans la salle
+        Item item = currentRoom.getItem(itemName);  // Get the item by its name from the room
         if (item != null) {
-            hero.addItem(item);  // Ajouter l'item à l'inventaire du héros
-            currentRoom.removeItem(itemName);  // Retirer l'item de la salle
-            System.out.println("Vous avez pris l'item : " + item.NAME);
+            hero.addItem(item);  // Add the item to the hero’s inventory
+            currentRoom.removeItem(itemName);  // Remove the item from the room
+            System.out.println("You took the item: " + item.NAME);
         } else {
-            System.out.println("Cet item n'est pas présent dans cette salle.");
+            System.out.println("This item is not present in the room.");
         }
     }
 
     public void inventory() {
-        hero.showInventory();  // Affiche l'inventaire du héros
+        hero.showInventory();  // Display the hero's inventory
+    }
+
+    public void fightZombie() {
+        int requiredAmmo = currentRoom == hall2 ? 1 : 2;
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("A zombie attacks you! Would you attack it? [YES/NO]");
+        String input = scanner.nextLine();
+
+        if (input.equalsIgnoreCase("YES")) {
+            // Compter le nombre de munitions dans le backpack
+            long ammoCount = hero.backpack.items.stream()
+                    .filter(item -> item instanceof Ammo)
+                    .count();
+
+            if (ammoCount >= requiredAmmo) {
+                System.out.println("Congratulations, you just killed the zombie with " + requiredAmmo + " bullet(s).");
+                System.out.println("See for yourself -> https://youtu.be/TBK7Tr-V3fg?si=ZWEUxcAj8ZJ6rCTe&t=19");
+
+                // Retirer les munitions utilisées du backpack
+                int removedAmmo = 0;
+                Iterator<Item> iterator = hero.backpack.items.iterator();
+                while (iterator.hasNext() && removedAmmo < requiredAmmo) {
+                    Item item = iterator.next();
+                    if (item instanceof Ammo) {
+                        iterator.remove();
+                        removedAmmo++;
+                    }
+                }
+
+                System.out.println("You now have " + (ammoCount - requiredAmmo) + " bullet(s) remaining.");
+            } else {
+                System.out.println("Not enough ammo. You have " + ammoCount + " ammo and the zombie requires " + requiredAmmo + " bullet(s) to be killed.");
+                System.out.println("The zombie killed you. Game over.");
+                System.exit(0);
+            }
+        } else {
+            System.out.println("You cannot flee from a zombie! He killed you. Game over.");
+            System.exit(0);
+        }
     }
 }

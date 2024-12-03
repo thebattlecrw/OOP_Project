@@ -47,9 +47,37 @@ Toutes les classes présentes dans le package "game sont directement liées au j
 ### Game
 La classe Game représente le cœur du jeu. Elle est chargée d'orchestrer les différentes mécaniques principales, comme la navigation entre les salles, l'interaction avec les objets, et l'affichage des informations au joueur. Elle est responsable de l'initialisation du jeu, la gestion de la boucle principale, les interactions avec le joueur, ainsi que la navigation et la positionnement.
 
-<b>Attributs</b>
+#### Attributs
 - currentRoom : La salle actuelle où se trouve le joueur.
 - hero :  Le personnage du joueur, capable d'interagir avec le monde du jeu.
+
+#### Constructeur 
+Le constructeur Game() initialise toutes les salles, les connecte entre elles, et place des objets spécifiques dans certaines salles, et positionne le joueur dans la salle de départ (salle 301).
+
+#### Méthodes
+- start() : Lance le jeu
+- go() : Déplace le joueur d'une salle à une autre
+- help() : Affiche une liste des commandes disponibles
+- look() : Affiche les objets présents dans la salle actuelle
+- take() : Ramasse un objet dans la salle actuelle et le met dans l'inventaire du joueur
+- inventory() : Montre les items que le joueur a récupéré
+
+### Room
+La classe Room représente une pièce ou un lieu dans le jeu. Elle gère les connexions avec d'autres pièces (sorties) et les items présents dans la salle.
+
+#### Attributs 
+- name : Le nom de la salle 
+- description : Une description narrative de la salle 
+- exits : Les sorties possibles depuis la salle
+- items : Les items disponibles dans la salle
+
+#### Constructeur
+Le constructeur Room(String, String) initialise une nouvelle salle avec un nom et une description, et prépare les structures pour les sorties et les objets.
+
+#### Méthodes
+- getName() : Retourne le nom de la salle
+- getDescription() : Retourne la description de la salle
+
 
 ## Package utilities
 # Divers
