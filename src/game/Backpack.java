@@ -6,7 +6,7 @@ import java.util.List;
 public class Backpack {
 
     // Liste pour stocker les items dans l'inventaire
-    private List<Item> items;
+    public List<Item> items;
 
     // Capacité maximale de l'inventaire (par exemple 10 objets)
     private final int MAX_CAPACITY = 10;
@@ -34,9 +34,9 @@ public class Backpack {
         }
         System.out.println("Volume : " + vol + " / " + MAX_CAPACITY);
         if (items.isEmpty()) {
-            System.out.println("Votre sac à dos est vide.");
+            System.out.println("Your backpack is empty.");
         } else {
-            System.out.println("Objets dans votre sac à dos :");
+            System.out.println("Item(s) in your backpack :");
             for (Item item : items) {
                 System.out.println("- " + item.NAME);
             }
