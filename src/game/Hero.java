@@ -7,7 +7,6 @@ public class Hero {
 
     // --- Attributs. ---
     private String name;
-    private final List<Key> keys;
     public Backpack backpack;  // Remplacer la liste d'items par un Backpack
 
     // --- Getters. ---
@@ -23,7 +22,6 @@ public class Hero {
     // --- Constructeur. ---
     public Hero() {
         this.name = "Generic";
-        this.keys = new ArrayList<>();
         this.backpack = new Backpack();  // Initialisation du sac à dos
     }
 

@@ -18,11 +18,6 @@ public class Backpack {
         items.add(item);
     }
 
-    // Retirer un item du backpack
-    public void removeItem(Item item) {
-        items.remove(item);
-    }
-
     // Afficher les items du backpack
     public void showItems() {
         int vol = 0;
