@@ -1,3 +1,5 @@
+package utilities;
+
 public class CommandProcessor {
 
     // Peut contenir des méthodes pour traiter des commandes supplémentaires
