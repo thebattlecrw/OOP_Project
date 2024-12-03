@@ -14,12 +14,6 @@ public class Hero {
     public String getName() {
         return name;
     }
-    public List<Key> getKeys() {
-        return keys;
-    }
-    public Backpack getBackpack() {
-        return backpack;  // Retourner l'objet Backpack
-    }
 
     // --- Setters. ---
     public void setName(String name) {
@@ -38,11 +32,6 @@ public class Hero {
     // Ajouter un item au backpack
     public void addItem(Item item) {
         backpack.addItem(item);
-    }
-
-    // Retirer un item du backpack
-    public void removeItem(Item item) {
-        backpack.removeItem(item);
     }
 
     // Afficher l'inventaire (les items dans le backpack)

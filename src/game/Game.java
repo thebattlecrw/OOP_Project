@@ -110,12 +110,12 @@ public class Game {
         Scanner scanner = new Scanner(System.in);
         String input;
         boolean gameRunning = true;
+        hero.setName("Player");
 
         System.out.println("""
                 ______________________________________________________________________________________________________________
-                You wake up in a military hospital. What should have been a routine vaccination turns into a nightmare...
-                The vaccine was replaced with a poison that turns patients into zombies. Fortunately, your body didn’t react
-                as expected... You need to find a way out, but beware, some are already in the process of transforming!
+                You wake up in a military hospital. A routine vaccination went wrong—the vaccine was poison,
+                turning patients into zombies. Somehow, you resisted. Find a way out, but beware, others are transforming!
                 ______________________________________________________________________________________________________________""");
 
         while (gameRunning) {
