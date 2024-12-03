@@ -1,5 +1,64 @@
 @startuml Lifeless
 
-class Game{}
+class Game {
+  - currentRoom : Room
+  - hero : Hero
+  + start() : void
+  + go(direction : String) : void
+  + help() : void
+  + look() : void
+  + take(itemName : String) : void
+  + inventory() : void
+}
+
+class Hero {
+  - name : String
+  - keys : List<Key>
+  - backpack : Backpack
+  + addItem(item : Item) : void
+  + removeItem(item : Item) : void
+  + showInventory() : void
+}
+
+class Room {
+  - name : String
+  - description : String
+  - exits : Map<String, Room>
+  - items : Map<String, Item>
+  + setExit(direction : String, room : Room) : void
+  + getExit(direction : String) : Room
+  + addItem(item : Item) : void
+  + getItem(itemName : String) : Item
+  + removeItem(itemName : String) : void
+  + showItems() : void
+}
+
+class Item {
+  + NAME : String
+  + VOLUME : int
+  + Item(name : String, vol : int) : void
+}
+
+class Gun {
+  + Gun(name : String) : void
+}
+
+class Character {
+  - description : String
+  + Character(desc : String, i : int) : void
+}
+
+class Zombie {
+  + Zombie(name : String, Bullets : int) : void
+}
+
+Game "1" *--> "1" Hero 
+Game "1" *--> "*" Room 
+Room "1" o--> "*" Item 
+Room "1" *--> "*" Character
+Zombie -|> Character 
+Gun -|> Item 
+Hero -|> Character 
+Radio -|> Item
 
 @enduml

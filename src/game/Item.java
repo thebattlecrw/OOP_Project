@@ -8,6 +8,4 @@ public abstract class Item {
 		this.NAME = name;
 		this.VOLUME = vol;
 	}
-	
-	// public abstract void use();
 }
