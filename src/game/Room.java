@@ -4,10 +4,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Room {
-    private String name;
-    private String description;
-    private Map<String, Room> exits;
-    private Map<String, Item> items;
+    private final String name;
+    private final String description;
+    private final Map<String, Room> exits;
+    private final Map<String, Item> items;
 
     public Room(String name, String description) {
         this.name = name;

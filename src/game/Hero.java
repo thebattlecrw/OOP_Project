@@ -7,7 +7,7 @@ public class Hero {
 
     // --- Attributs. ---
     private String name;
-    private List<Key> keys;
+    private final List<Key> keys;
     public Backpack backpack;  // Remplacer la liste d'items par un Backpack
 
     // --- Getters. ---

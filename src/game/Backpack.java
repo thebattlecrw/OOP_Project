@@ -8,9 +8,6 @@ public class Backpack {
     // Liste pour stocker les items dans l'inventaire
     public List<Item> items;
 
-    // Capacité maximale de l'inventaire (par exemple 10 objets)
-    private final int MAX_CAPACITY = 10;
-
     // Constructeur de la classe
     public Backpack() {
         this.items = new ArrayList<>();
@@ -32,6 +29,8 @@ public class Backpack {
         for (Item item : items) {
             vol = vol + item.VOLUME;
         }
+        // Capacité maximale de l'inventaire (par exemple 10 objets, ne sera jamais dépassé)
+        int MAX_CAPACITY = 10;
         System.out.println("Volume : " + vol + " / " + MAX_CAPACITY);
         if (items.isEmpty()) {
             System.out.println("Your backpack is empty.");
