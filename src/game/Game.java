@@ -1,6 +1,5 @@
 package game;
 
-import java.util.Objects;
 import java.util.Scanner;
 import java.util.Iterator;
 
@@ -10,6 +9,7 @@ public class Game {
     private Room currentRoom;
     private final Hero hero;
     private boolean hasVisited2 = false;
+    private int count = -1;
 
     // Otherwise, an error in go() ---- Should we declare all rooms here?
     private final Room hall2 = new Room("Second Floor Hallway", "A completely ordinary hallway. It leads to rooms '201' to '206', as well as to the hallways on the first 'hall1' and third 'hall3' floors.");
@@ -101,9 +101,10 @@ public class Game {
 
         // Initialize the hero
         hero = new Hero();
+        hero.setName("Player");
 
         // Start the game in the initial room
-        currentRoom = hall3;
+        currentRoom = room301;
     }
 
     public void start() {
@@ -119,7 +120,8 @@ public class Game {
                 ______________________________________________________________________________________________________________""");
 
         while (gameRunning) {
-            System.out.println("\n\n[ " + currentRoom.getName() + " ]");
+            count = count + 1;
+            System.out.println("\n\n[ " + count + currentRoom.getName() + " ]");
             System.out.println(currentRoom.getDescription());
             if ((currentRoom == hall2 && !hasVisited2) || (currentRoom == exit)) {
                 fightZombie();
@@ -201,20 +203,28 @@ public class Game {
         int requiredAmmo = currentRoom == hall2 ? 1 : 2;
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("A zombie attacks you! Would you attack it? [YES/NO]");
+        System.out.println("A zombie attacks you! He needs " + requiredAmmo + "to be killed. Would you attack it? [YES/NO]");
         String input = scanner.nextLine();
 
         if (input.equalsIgnoreCase("YES")) {
-            // Compter le nombre de munitions dans le backpack
+
             long ammoCount = hero.backpack.items.stream()
                     .filter(item -> item instanceof Ammo)
                     .count();
 
-            if (ammoCount >= requiredAmmo) {
-                System.out.println("Congratulations, you just killed the zombie with " + requiredAmmo + " bullet(s).");
-                System.out.println("See for yourself -> https://youtu.be/TBK7Tr-V3fg?si=ZWEUxcAj8ZJ6rCTe&t=19");
+            boolean hasGun = hero.backpack.items.stream()
+                    .anyMatch(item -> item instanceof Gun);
 
-                // Retirer les munitions utilisées du backpack
+            if (ammoCount >= requiredAmmo && hasGun) {
+                System.out.println("Congratulations, you just killed the zombie with " + requiredAmmo + " bullet(s).");
+                System.out.println("See by yourself -> https://youtu.be/TBK7Tr-V3fg?si=ZWEUxcAj8ZJ6rCTe&t=19");
+
+                if (currentRoom == exit) {
+                    System.out.println("Congratulations, you finished the game within " + count + " moves !");
+                    System.exit(0);
+                }
+
+                // Remove used muns from backpack
                 int removedAmmo = 0;
                 Iterator<Item> iterator = hero.backpack.items.iterator();
                 while (iterator.hasNext() && removedAmmo < requiredAmmo) {
@@ -226,6 +236,10 @@ public class Game {
                 }
 
                 System.out.println("You now have " + (ammoCount - requiredAmmo) + " bullet(s) remaining.");
+            } else if (ammoCount >= requiredAmmo && !hasGun) {
+                System.out.println("You have enough bullet(s), but no weapon !");
+                System.out.println("The zombie killed you. Game over.");
+                System.exit(0);
             } else {
                 System.out.println("Not enough ammo. You have " + ammoCount + " ammo and the zombie requires " + requiredAmmo + " bullet(s) to be killed.");
                 System.out.println("The zombie killed you. Game over.");

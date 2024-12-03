@@ -5,10 +5,10 @@ import java.util.List;
 
 public class Hero {
 
-    // --- Attributs. ---
+    // --- Attributes. ---
     private String name;
-    private List<Key> keys;
-    public Backpack backpack;  // Remplacer la liste d'items par un Backpack
+    private final List<Key> keys;
+    public Backpack backpack;  // Replace the list of items with a Backpack
 
     // --- Getters. ---
     public String getName() {
@@ -18,7 +18,7 @@ public class Hero {
         return keys;
     }
     public Backpack getBackpack() {
-        return backpack;  // Retourner l'objet Backpack
+        return backpack;  // Return the Backpack object
     }
 
     // --- Setters. ---
@@ -26,26 +26,26 @@ public class Hero {
         this.name = name;
     }
 
-    // --- Constructeur. ---
+    // --- Constructor. ---
     public Hero() {
         this.name = "Generic";
         this.keys = new ArrayList<>();
-        this.backpack = new Backpack();  // Initialisation du sac à dos
+        this.backpack = new Backpack();  // Initialize the backpack
     }
 
-    // --- Méthodes. ---
+    // --- Methods. ---
 
-    // Ajouter un item au backpack
+    // Add an item to the backpack
     public void addItem(Item item) {
         backpack.addItem(item);
     }
 
-    // Retirer un item du backpack
+    // Remove an item from the backpack
     public void removeItem(Item item) {
         backpack.removeItem(item);
     }
 
-    // Afficher l'inventaire (les items dans le backpack)
+    // Show the inventory (the items in the backpack)
     public void showInventory() {
         backpack.showItems();
     }

@@ -4,10 +4,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Room {
-    private String name;
-    private String description;
-    private Map<String, Room> exits;
-    private Map<String, Item> items;
+    private final String name;
+    private final String description;
+    private final Map<String, Room> exits;
+    private final Map<String, Item> items;
 
     public Room(String name, String description) {
         this.name = name;
@@ -32,33 +32,33 @@ public class Room {
         return exits.get(direction);
     }
 
-    // --- Méthodes pour gérer les items dans la salle ---
+    // --- Methods to manage items in the room ---
 
-    // Ajouter un item à la salle
+    // Add an item to the room
     public void addItem(Item item) {
-        items.put(item.NAME, item);  // On ajoute l'item en utilisant son nom comme clé
+        items.put(item.NAME, item);  // Add the item using its name as the key
     }
 
-    // Récupérer un item par son nom
+    // Retrieve an item by its name
     public Item getItem(String itemName) {
-        return items.get(itemName);  // Retourne l'item correspondant au nom ou null si non trouvé
+        return items.get(itemName);  // Return the item matching the name or null if not found
     }
 
-    // Retirer un item de la salle par son nom
+    // Remove an item from the room by its name
     public void removeItem(String itemName) {
         if (items.containsKey(itemName)) {
-            items.remove(itemName);  // Retirer l'item de la salle
+            items.remove(itemName);  // Remove the item from the room
         } else {
-            System.out.println("Cet item n'existe pas dans cette salle.");
+            System.out.println("This item does not exist in this room.");
         }
     }
 
-    // Afficher les items présents dans la salle
+    // Show the items present in the room
     public void showItems() {
         if (items.isEmpty()) {
-            System.out.println("Il n'y a pas d'objets dans cette salle.");
+            System.out.println("There are no items in this room.");
         } else {
-            System.out.println("Objets présents dans la salle :");
+            System.out.println("Items present in the room:");
             for (Item item : items.values()) {
                 System.out.println("- " + item.NAME);
             }
