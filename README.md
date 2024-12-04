@@ -112,6 +112,7 @@ Le constructeur Room(String, String) initialise une nouvelle salle avec un nom e
 - getItem() : Retourne un objet par son nom.
 - removeItem() : Supprime un objet de la salle.
 - showItems() : Affiche tous les objets présents dans la salle.
+- printExits() : Affiche toutes les pièces dans lesquelles le joueur peut se rendre.
 
 ### Hero
 La classe Hero représente le personnage contrôlé par le joueur. Elle gère son nom et son inventaire via un sac à dos (Backpack).
@@ -168,3 +169,6 @@ Dans la version actuelle du jeu, il n'y a que trois objets : le radio, l'arme à
 
 L'intégration d'un chronomètre n'a pas été jugée entièrement nécessaire, mais cela aurait pu être intéressant de l'introduire pour montrer combien de temps le joueur a avant de devoir quitter le bâtiment après avoir appelé à l'aide. Cela aurait créé un sentiment de suspense et donné au joueur une dernière chance de fouiller le bâtiment avant de partir.
 
+## Les trous
+
+Lorsque nous concevions le jeu, nous avions l'idée d'inclure des trous dans certaines pièces comme obstacles. Bien que nous n'ayons jamais eu le temps de mettre en œuvre cette fonctionnalité, notre plan initial était de la créer comme une sous-classe de la classe Room, où la présence d'un trou aurait un impact sur la pièce située en dessous.
