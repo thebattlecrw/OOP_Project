@@ -12,6 +12,7 @@ public class Game {
     private int count = -1;
 
     // Otherwise, an error in go() ---- Should we declare all rooms here?
+    private final Room hall1 = new Room("Hall1", "A completely ordinary hallway. It leads to rooms '101' to '106', as well as to the hallway on the second floor 'hall2' and the exit 'exit'.");
     private final Room hall2 = new Room("Second Floor Hallway", "A completely ordinary hallway. It leads to rooms '201' to '206', as well as to the hallways on the first 'hall1' and third 'hall3' floors.");
     private final Room exit = new Room("Exit", "The exit of the hospital.");
 
@@ -20,16 +21,16 @@ public class Game {
         // Room initialization
 
         Room room101 = new Room("Room 101", "A completely ordinary room.");
-        Room room102 = new Room("Room 102", "A completely ordinary room.");
-        Room room103 = new Room("Room 103", "A completely ordinary room.");
+        Room room102 = new Room("Room 102", "An empty room.");
+        Room room103 = new Room("Room 103", "A room full of debrits.");
         Room room104 = new Room("Room 104", "A completely ordinary room.");
-        Room room105 = new Room("Room 105", "A completely ordinary room.");
-        Room room106 = new Room("Room 106", "A completely ordinary room.");
+        Room room105 = new Room("Room 105", "An empty room with blood on the floor.");
+        Room room106 = new Room("Room 106", "A room with a TV.");
 
         Room room201 = new Room("Room 201", "A room that seems empty at first glance.");
         Room room202 = new Room("Room 202", "An empty room.");
         Room room203 = new Room("Room 203", "A room with a TV.");
-        Room room204 = new Room("Room 204", "A room with a stretcher blocking the door. Inside, you find the half-zombified body of Sergeant TIFRICE...");
+        Room room204 = new Room("Room 204", "A room with a stretcher blocking the door. Inside, you find the surgeon... Talk to him !");
         Room room205 = new Room("Room 205", "A lifeless room with a strong stench of decay. There's a hole in one of the walls.");
         Room room206 = new Room("Room 206", "A room with a TV.");
 
@@ -37,10 +38,9 @@ public class Game {
         Room room302 = new Room("Room 302", "A room where a shootout occurred.");
         Room room303 = new Room("Room 303", "Another room with a hole.");
         Room room304 = new Room("Room 304", "A room where a shootout occurred.");
-        Room room305 = new Room("Room 305 - Dr. Hou’s Office", "Another empty room. A half-erased or simply poorly written inscription is on the board: 'H LP 101 3__4'.");
-        Room room306 = new Room("Room 306", "A room with a dying sergeant. 'Please, tell me my company commander is okay. He went to get vaccinated in room 204.'");
+        Room room305 = new Room("Room 305 - Surgeon's Office", "Another empty room. A poorly written inscription is on the board: 'HELP 205->204'.");
+        Room room306 = new Room("Room 306", "A room with a dying sergeant. 'Please, tell me my company commander is okay. He went to get vaccinated in room 105.'");
 
-        Room hall1 = new Room("Hall1", "A completely ordinary hallway. It leads to rooms '101' to '106', as well as to the hallway on the second floor 'hall2'.");
         Room hall3 = new Room("Third Floor Hallway", "A completely ordinary hallway. It leads to rooms '301' to '306', as well as to the hallway on the second floor 'hall2'.");
 
         // Link the rooms together
@@ -92,12 +92,14 @@ public class Game {
         hall3.setExit("hall2", this.hall2);
 
         // Add ammunition
+        Surgeon Surgean = new Surgeon("Docteur");
         Ammo ammo = new Ammo("Ammo");
         Gun FAMAS = new Gun("FAMAS");
         room301.addItem(FAMAS);
         room302.addItem(ammo);
         room304.addItem(ammo);
         room103.addItem(ammo);
+        room204.addNPC(Surgean);
 
         // Initialize the hero
         hero = new Hero();
@@ -121,7 +123,7 @@ public class Game {
 
         while (gameRunning) {
             count = count + 1;
-            System.out.println("\n\n[ " + count + currentRoom.getName() + " ]");
+            System.out.println("\n\n[ " + currentRoom.getName() + " ]");
             System.out.println(currentRoom.getDescription());
             if ((currentRoom == hall2 && !hasVisited2) || (currentRoom == exit)) {
                 fightZombie();
@@ -142,6 +144,8 @@ public class Game {
                 take(itemName);  // Take the item
             } else if (input.equals("INVENTORY")) {
                 inventory();  // Show the hero's inventory
+            } else if (input.equals("TALK")) {
+                talk();  // Talk to the Surgeon to get a key
             } else if (input.equals("QUIT")) {
                 gameRunning = false;
             } else {
@@ -156,19 +160,33 @@ public class Game {
     // In-game commands
     private void go(String direction) {
         Room nextRoom = currentRoom.getExit(direction);
+        boolean hasKey = hero.backpack.items.stream().anyMatch(item -> item instanceof Key);
 
-        // Check if the player is in the Hall2 and tries to enter room 204
         if (currentRoom == hall2 && direction.equals("204")) {
+            // Specific case: The door to room 204 is blocked
             System.out.println("The door seems blocked from the inside.");
-        } else {
-            if (nextRoom != null) {
-                currentRoom = nextRoom;  // Move the player to the next room
-                System.out.println("You move to: " + nextRoom.getName());
+        } else if (currentRoom == hall1 && direction.equals("exit")) {
+            // Specific case: Attempting to exit via the exit door
+            if (hasKey) {
+                if (nextRoom != null) {
+                    currentRoom = nextRoom;  // Move to the next room
+                    System.out.println("You use the key and move to: " + nextRoom.getName());
+                } else {
+                    System.out.println("The exit doesn't seem accessible.");
+                }
             } else {
-                System.out.println("You face a wall.");
+                System.out.println("You need a key to open this door!");
             }
+        } else if (nextRoom != null) {
+            // General case: Valid movement
+            currentRoom = nextRoom;
+            System.out.println("You move to: " + nextRoom.getName());
+        } else {
+            // General case: Invalid movement
+            System.out.println("You face a wall.");
         }
     }
+
 
     public void help() {
         System.out.println("Available commands:");
@@ -177,6 +195,7 @@ public class Game {
         System.out.println("LOOK - Look around (displays the room description and items present).");
         System.out.println("TAKE [item] - Pick up an item in the room (e.g., TAKE Key).");
         System.out.println("INVENTORY - Show items in your inventory.");
+        System.out.println("TALK - Talk to an NPC.");
         System.out.println("QUIT - Quit the game.");
     }
 
@@ -203,7 +222,7 @@ public class Game {
         int requiredAmmo = currentRoom == hall2 ? 1 : 2;
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("A zombie attacks you! He needs " + requiredAmmo + "to be killed. Would you attack it? [YES/NO]");
+        System.out.println("A zombie attacks you! He needs " + requiredAmmo + " bullets to be killed. Would you attack it? [YES/NO]");
         String input = scanner.nextLine();
 
         if (input.equalsIgnoreCase("YES")) {
@@ -249,5 +268,19 @@ public class Game {
             System.out.println("You cannot flee from a zombie! He killed you. Game over.");
             System.exit(0);
         }
+    }
+
+    public void talk() {
+        boolean hasKey = hero.backpack.items.stream().anyMatch(item -> item instanceof Key);
+        if (!hasKey) {
+            for (NPC npc : currentRoom.getNPCs()) {
+                if (npc instanceof Surgeon) {
+                    System.out.println("The surgeon hands you a key, whispering: \"Take this and leave quickly...\"");
+                    Key key = new Key("Surgeon's Key");
+                    hero.addItem(key);
+                    break;
+                }
+            } System.out.println("There is no one to talk to here.");
+        } else System.out.println("You already collected the surgeon's key.");
     }
 }
