@@ -34,7 +34,7 @@ public class Game {
         Room room205 = new Room("Room 205", "A lifeless room with a strong stench of decay. There's a hole in one of the walls.");
         Room room206 = new Room("Room 206", "A room with a TV.");
 
-        Room room301 = new Room("Room 301", "This is your room. There’s only one door, which leads to the third-floor hallway 'Hall3'.");
+        Room room301 = new Room("Room 301", "This is your room. There’s only one door, which leads to the third-floor hallway 'hall3'.");
         Room room302 = new Room("Room 302", "A room where a shootout occurred.");
         Room room303 = new Room("Room 303", "Another room with a hole.");
         Room room304 = new Room("Room 304", "A room where a shootout occurred.");
@@ -191,7 +191,7 @@ public class Game {
 
     public void help() {
         System.out.println("Available commands:");
-        System.out.println("GO [direction] - Move in the specified direction (e.g., GO east).");
+        System.out.println("GO [direction] - Move in the specified direction (e.g., GO hall1).");
         System.out.println("HELP - Display this list of commands.");
         System.out.println("LOOK - Look around (displays the room description and items present).");
         System.out.println("TAKE [item] - Pick up an item in the room (e.g., TAKE Key).");

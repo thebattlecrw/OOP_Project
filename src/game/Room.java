@@ -37,11 +37,11 @@ public class Room {
     }
 
     public void printExits(){
-        System.out.print("Exits : ");
+        System.out.print("Exits : - ");
         for (Map.Entry<String, Room> entry : this.exits.entrySet()){
             System.out.print(entry.getKey() + " ");
         }
-        System.out.println();
+        System.out.println("-");
     }
 
     // --- Methods to manage items in the room ---
