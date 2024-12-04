@@ -40,6 +40,7 @@ Lifeless est un jeu d'aventure textuel se déroulant dans un monde post-apocalyp
 ├── exec.sh
 ├── rapport.pdf
 ├── README.md
+├── README.txt
 └── src
     └── game
         ├── Ammo.java
@@ -59,6 +60,7 @@ Le jeu est fourni précompilé, et tous les fichiers binaires se trouvent dans l
 ```bash
 ./exec.sh
 ```
+Le jeu est compatible avec Java version 21 ou supérieure.
 
 # Diagramme UML
 ![Le diagramme UML du jeu](assets/lifeless_uml.png)
