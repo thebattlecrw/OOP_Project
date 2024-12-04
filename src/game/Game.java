@@ -22,7 +22,7 @@ public class Game {
 
         Room room101 = new Room("Room 101", "A completely ordinary room.");
         Room room102 = new Room("Room 102", "An empty room.");
-        Room room103 = new Room("Room 103", "A room full of debrits.");
+        Room room103 = new Room("Room 103", "A room full of debris.");
         Room room104 = new Room("Room 104", "A completely ordinary room.");
         Room room105 = new Room("Room 105", "An empty room with blood on the floor.");
         Room room106 = new Room("Room 106", "A room with a TV.");
@@ -34,7 +34,7 @@ public class Game {
         Room room205 = new Room("Room 205", "A lifeless room with a strong stench of decay. There's a hole in one of the walls.");
         Room room206 = new Room("Room 206", "A room with a TV.");
 
-        Room room301 = new Room("Room 301", "This is your room. There’s only one door, which leads to the third-floor hallway 'Hall2'.");
+        Room room301 = new Room("Room 301", "This is your room. There’s only one door, which leads to the third-floor hallway 'Hall3'.");
         Room room302 = new Room("Room 302", "A room where a shootout occurred.");
         Room room303 = new Room("Room 303", "Another room with a hole.");
         Room room304 = new Room("Room 304", "A room where a shootout occurred.");
@@ -92,14 +92,14 @@ public class Game {
         hall3.setExit("hall2", this.hall2);
 
         // Add ammunition
-        Surgeon Surgean = new Surgeon("Docteur");
+        Surgeon surgeon = new Surgeon("Doc");
         Ammo ammo = new Ammo("Ammo");
-        Gun FAMAS = new Gun("FAMAS");
-        room301.addItem(FAMAS);
+        Gun gun = new Gun("Gun");
+        room301.addItem(gun);
         room302.addItem(ammo);
         room304.addItem(ammo);
         room103.addItem(ammo);
-        room204.addNPC(Surgean);
+        room204.addNPC(surgeon);
 
         // Initialize the hero
         hero = new Hero();
@@ -125,6 +125,7 @@ public class Game {
             count = count + 1;
             System.out.println("\n\n[ " + currentRoom.getName() + " ]");
             System.out.println(currentRoom.getDescription());
+            currentRoom.printExits();
             if ((currentRoom == hall2 && !hasVisited2) || (currentRoom == exit)) {
                 fightZombie();
                 hasVisited2 = true;

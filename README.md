@@ -41,7 +41,11 @@ Lifeless est un jeu d'aventure textuel se déroulant dans un monde post-apocalyp
         └── Zombie.java
 ```
 # Execution
-<!-- will be known WHEN I GET THE FINISHED PRODUCT-->
+Le jeu est fourni précompilé, et tous les fichiers binaires se trouvent dans le répertoire "bin/". Un fichier nommé "exec.sh" a également été mis à disposition pour simplifier son utilisation. Pour démarrer le jeu, entrez la commande suivante dans le terminal :
+```bash
+./exec.sh
+```
+
 # Diagramme UML
 ![Le diagramme UML du jeu](assets/lifeless_uml.png)
 

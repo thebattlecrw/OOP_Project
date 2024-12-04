@@ -36,6 +36,14 @@ public class Room {
         return exits.get(direction);
     }
 
+    public void printExits(){
+        System.out.print("Exits : ");
+        for (Map.Entry<String, Room> entry : this.exits.entrySet()){
+            System.out.print(entry.getKey() + " ");
+        }
+        System.out.println();
+    }
+
     // --- Methods to manage items in the room ---
 
     public void addNPC(NPC npc) {
