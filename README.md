@@ -13,18 +13,32 @@ Composition du groupe : Saba Dzigua, Sebastian Lovejoy-Black, Antonin Spychala
 
 # Description
 ## Histoire
-Lifeless est un jeu d'aventure textuel se déroulant dans un monde post-apocalyptique. Le jeu commence lorsque le personnage principal se réveille d'un coma dans un hôpital abandonné, découvrant un monde radicalement changé. L'objectif principal est de s'échapper de l'hôpital après avoir appelé à l'aide. Pour réussir, le joueur doit explorer l'hôpital pour trouver un radio, appeler à l'aide, récupérer une arme à feu ainsi que suffisamment de munitions pour survivre, et sauver un chirurgien qui possède un badge de sortie permettant de quitter les lieux. Le gameplay met l'accent sur l'exploration, la prise de décision et la résolution de problèmes, alors que le joueur navigue dans un environnement déserté et inconnu, rassemblant progressivement les éléments nécessaires pour avancer.
+Lifeless est un jeu d'aventure textuel se déroulant dans un monde post-apocalyptique. Le jeu commence lorsque le personnage principal se réveille d'un coma dans un hôpital abandonné, découvrant un monde radicalement changé. L'objectif principal est de s'échapper de l'hôpital après avoir appelé à l'aide. Pour réussir, le joueur doit explorer l'hôpital pour trouver un radio, appeler à l'aide, récupérer une arme à feu ainsi que suffisamment de munitions pour survivre, et sauver un chirurgien qui possède un badge de sortie permettant de quitter les lieux. Le jeu met l'accent sur l'exploration, la prise de décision et la résolution de problèmes, alors que le joueur navigue dans un environnement déserté et inconnu, rassemblant progressivement les éléments nécessaires pour avancer.
 
-## Plan du jeu
+<!--## Plan du jeu-->
 <!-- insert map -->
 
-# Structure des fichiers <!-- to be updated -->
+# Structure des fichiers 
 ```bash 
 .
 ├── assets
+│   ├── diagram.wsd
 │   └── lifeless_uml.png
 ├── bin
-├── diagram.wsd
+│   └── game
+│       ├── Ammo.class
+│       ├── Backpack.class
+│       ├── Game.class
+│       ├── Gun.class
+│       ├── Hero.class
+│       ├── Item.class
+│       ├── Key.class
+│       ├── Main.class
+│       ├── NPC.class
+│       ├── Room.class
+│       └── Surgeon.class
+├── exec.sh
+├── rapport.pdf
 ├── README.md
 └── src
     └── game
@@ -38,7 +52,7 @@ Lifeless est un jeu d'aventure textuel se déroulant dans un monde post-apocalyp
         ├── Main.java
         ├── NPC.java
         ├── Room.java
-        └── Zombie.java
+        └── Surgeon.java
 ```
 # Execution
 Le jeu est fourni précompilé, et tous les fichiers binaires se trouvent dans le répertoire "bin/". Un fichier nommé "exec.sh" a également été mis à disposition pour simplifier son utilisation. Pour démarrer le jeu, entrez la commande suivante dans le terminal :
@@ -126,11 +140,13 @@ La classe Gun étend la classe abstraite Item et représente une arme dans le je
 
 La classe NPC est une classe abstraite représentant un personnage non-joueur dans le jeu. Elle possède un attribut description qui donne des informations sur le NPC. Le constructeur initialise cet attribut avec une description fournie, mais cette classe ne peut pas être instanciée directement, étant conçue pour être étendue par des classes spécifiques de NPC.
 
-### Zombie
+### Surgeon
 
-La classe Zombie étend la classe abstraite NPC et représente un type spécifique de personnage non-joueur dans le jeu. Elle hérite de l'attribut description de NPC, bien que son constructeur semble principalement destiné à initialiser un nom et un paramètre supplémentaire (probablement pour gérer les munitions, mais il n'est pas utilisé ici). Le Zombie est ainsi une spécialisation de NPC.
+La classe Surgeon étend la classe abstraite NPC et représente un type spécifique de personnage non-joueur dans le jeu. Elle hérite de l'attribut description de NPC, bien que son constructeur semble principalement destiné à initialiser un nom. Surgeon est ainsi une spécialisation de NPC.
 
 ### Ammo
+
+La classe Ammo est une sous-classe de Item, représentant des munitions dans le jeu. Elle définit un volume fixe de 1 et hérite des attributs de la classe Item, tels que NAME. Son constructeur prend simplement un nom en paramètre pour initialiser l'instance d'objets munitions. Cette classe est simple et ne comporte aucune logique complexe, se contentant d'étendre la fonctionnalité de la classe Item avec des spécifications particulières pour les munitions.
 
 # Fonctionnalités non implémentées
 
